@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Register Form</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/custom.css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <header>
+            <nav>
+                <ul class="nav nav-tabs">
+                    <li role="presentation"><a href="home.html">Home</a></li>
+                    <li role="presentation" class="active pull-right"><a href="register.html">Register</a></li>
+                    <li role="presentation" class="pull-right"><a href="login.html">Login</a></li>
+                </ul>
+
+            </nav>
+        </header>
+        <div class="container">
+
+            <h1 class="text-center">Register Form</h1>
+            <form class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" id="fName" placeholder="First Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Last Name</label>
+                    <input type="text" class="form-control" id="lName" placeholder="Last Name">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="pw" placeholder="Password" minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Confirm Password</label>
+                    <input type="password" class="form-control" id="cpw" placeholder="Password" minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1"> Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                </div>
+
+                <button type="submit" class="btn btn-default" id="btnSubmit">Submit</button>
+
+                <div class="alert alert-danger" role="alert">
+                    <h1 class="text-center">Password Help</h1>
+                    <ul>
+                        <li>
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            Password must be greater than 6 characters
+                        </li>
+                        <li>
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            Password must have at least one Number
+                        </li>
+                        <li>
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            Password and Confirmed password must match
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://sabioapi2.azurewebsites.net/scripts/sabio.js"></script>
+    <script src="script/sabio.services.users.js"></script>
+
+    <script type="text/javascript">
+
+        sabio.page.startUp = function () {
+            $("#btnSubmit").on("click", sabio.page.handlers.submitForm);
+        }
+
+        sabio.page.success = function (data, status, xhr) {
+            console.log("success");
+        }
+
+        sabio.page.error = function (xhr, status, errorCode) {
+            console.log(errorCode)
+        }
+
+        sabio.page.handlers.submitForm = function (e) {
+            console.log("button click");
+            e.preventDefault();
+            var data = sabio.page.readData();
+            console.log(data);
+            //sabio.page.validation(data)
+            sabio.page.register(data, sabio.page.success, sabio.page.error)
+        }
+
+        sabio.page.readData = function () {
+            var dataForm = {
+                firstName: $("#fName").val(),
+                lastName: $("#lName").val(),
+                password: $("#pw").val(),
+                confirmPassword: $("#cpw").val(),
+                email: $("#email").val()
+            }
+            return dataForm
+        }
+
+    
+
+        //sabio.page.validation = function (data) {
+        //    console.log(data)
+        //    //var numPass = new RegExp("?=.*[0 - 9]");
+        //    if (data.password.length < 6) {
+          
+        //        $(".alert").css("display", "inherit");
+        //        $(".alert ul li").eq(2).blur();
+        //        console.log("Please fill out again");
+       
+        //    }
+
+          //  else if (data.password != num) {
+          //      $(".alert ul li span").eq(0).removeClass("glyphicon-remove").addClass("glyphicon-ok");
+          //      $(".alert").css("display", "inherit");
+          //      console.log("Please include at least one number");
+          //      return;
+          //   // $(".alert ul li span").eq(1).removeClass("glyphicon-remove").addClass("glyphicon-ok");
+          //    //return ("no_num");
+          //}
+
+          //  else if (data.password === $("#cpw").val()) {
+          //      $(".alert").css("display", "inherit");
+          //  //  $(".alert ul li span").eq(2).removeClass("glyphicon-remove").addClass("glyphicon-ok");
+          //      console.log("no match")
+           
+          //}
+          //else {
+          //       sabio.page.register(data, sabio.page.success, sabio.page.error)
+          //}
+        //}
+    </script>
+</body>
+</html>

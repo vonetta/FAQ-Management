@@ -1,0 +1,15 @@
+﻿body {
+    background:lightgray;
+}
+
+ul{
+list-style-type:none;
+}
+
+.alert {
+display: none;
+}
+
+.faq {
+    display:none;
+}

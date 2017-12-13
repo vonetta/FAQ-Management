@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Home Page</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/custom.css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <header>
+            <nav>
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active "><a href="home.html">Home</a></li>
+                    <li role="presentation" class="pull-right" id="btnLogout"><a href="login.html">Logout</a></li>
+                    <li role="presentation" class="pull-right"><a href="login.html">Login</a></li>
+                    <li role="presentation" class="pull-right"><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container">
+            <h1 class="text-left">Logged in User Name</h1>
+
+            <div class="row">
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" id="btnFaq">My FAQ's</button>
+                    <button type="button" class="btn btn-warning" id="btnQuiz">My Quizzes</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="faq">
+                    <form class="col-md-8 col-md-offset-2">
+                        <div class="form-group">
+
+                            <label>FAQ Categories:</label><br />
+                            <select class="form-control dropdown" id="dropdown"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Question:</label>
+                            <input type="text" class="form-control" id="question" placeholder="Please Enter Your Question Here?" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Answer:</label>
+                            <input type="text" class="form-control" id="answer" placeholder="Please Enter Your Answer Here?" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Display Order:</label>
+                            <input type="text" class="form-control" id="display" placeholder="Display Order?" required>
+                        </div>
+                        <button type="submit" class="btn btn-success" id="btnSubQues">Submit Question</button>
+                        <input type="hidden" id="faqId" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://sabioapi2.azurewebsites.net/scripts/sabio.js"></script>
+    <script src="script/sabio.services.users.js"></script>
+    <script src="script/sabio.services.faqs.js"></script>
+
+    <script type="text/javascript">
+        sabio.page.startUp = function () {
+            sabio.page.getUser(sabio.page.success, sabio.page.error)
+            $("#btnFaq").on("click", sabio.page.handlers.getCategories);
+            $("#btnSubQues").on("click", sabio.page.handlers.newFaq);
+        }
+
+        sabio.page.handlers.getCategories = function () {
+            $(".faq").css("display", "inherit");
+            sabio.page.getCategories(sabio.page.categorySuccess, sabio.page.error);
+        }
+
+        sabio.page.handlers.newFaq = function (e) {
+            e.preventDefault();
+            var data = sabio.page.readQuestion();
+            sabio.page.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
+            var id = $("#faqId").val();
+            console.log(id)
+            if (id) {
+                $("#btnSubQues").text("Update FAQ");
+                sabio.page.editFaq(data, id, sabio.page.faqSuccess, sabio.page.error);
+            }
+            else {
+                $("#btnSubQues").text("Submit FAQ");
+            }
+        }
+
+        sabio.page.readQuestion = function () {
+            var questionData = {
+                faqCategoryId: $("#dropdown").val(),
+                question: $("#question").val(),
+                answer: $("#answer").val(),
+                displayOrder: $("#display").val(),
+                id: $("#faqId").val()
+            }
+            return questionData
+        }
+
+        sabio.page.success = function (data, status, xhr) {
+            $("h1").text(data.item.firstName + " " + data.item.lastName);
+        }
+
+        sabio.page.categorySuccess = function (data, status, xhr) {
+            data.items.forEach(function (item) {
+                $(".dropdown").append("<option value =" + item.id + ">" + item.name + "</option>");
+            })
+        }
+
+        sabio.page.editSuccess = function (data, status, xhr) {
+            $("#btnSubQues").text("Update FAQ");
+            console.log(window.location)
+        }
+
+        sabio.page.faqSuccess = function (data, status, xhr) {
+            var id = data.item
+            console.log(id)
+            $("#faqId").val(id)
+        }
+
+        sabio.page.error = function (xhr, status, errorText) {
+            console.log(errorText);
+        }
+    </script>
+</body>
+</html>
