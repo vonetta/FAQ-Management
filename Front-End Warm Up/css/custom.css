@@ -3,13 +3,14 @@
 }
 
 ul{
-list-style-type:none;
+    list-style-type:none;
 }
 
 .alert {
 display: none;
 }
 
-.faq {
+/*.faq {
     display:none;
-}
+}*/
+  

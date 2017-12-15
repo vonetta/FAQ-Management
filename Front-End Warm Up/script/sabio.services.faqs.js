@@ -31,12 +31,10 @@ sabio.page.editFaq = function (data, id, onSuccess, onError) {
     $.ajax(url + "faqs/" + id, settings);
 }
 
-sabio.page.getFaq = function (data, id, onSuccess, onError) {
+sabio.page.getFaq = function ( id, onSuccess, onError) {
     var settings = {
         cache: false,
         type: "GET",
-        contentType: "application/json",
-        data: JSON.stringify(data),
         success: onSuccess,
         error: onError,
         xhrFields: {
@@ -45,3 +43,17 @@ sabio.page.getFaq = function (data, id, onSuccess, onError) {
     };
     $.ajax(url + "faqs/" + id, settings);
 }
+
+sabio.page.getFaq = function ( onSuccess, onError) {
+    var settings = {
+        cache: false,
+        type: "GET",
+        success: onSuccess,
+        error: onError,
+        xhrFields: {
+            withCredentials: true
+        }
+    };
+    $.ajax(url + "faqs/user", settings);
+}
+

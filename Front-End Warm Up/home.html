@@ -28,6 +28,7 @@
                 <div class="text-center">
                     <button type="button" class="btn btn-success" id="btnFaq">My FAQ's</button>
                     <button type="button" class="btn btn-warning" id="btnQuiz">My Quizzes</button>
+                    <button type="button" class="btn btn-info" id="btnMyFaq">My FAQ's</button>
                 </div>
             </div>
             <div class="row">
@@ -41,20 +42,20 @@
 
                         <div class="form-group">
                             <label>Question:</label>
-                            <input type="text" class="form-control" id="question" placeholder="Please Enter Your Question Here?" required>
+                            <input type="text" class="form-control" id="question" placeholder="Please Enter Your Question Here?" value="This is my question" required>
                         </div>
 
                         <div class="form-group">
                             <label>Answer:</label>
-                            <input type="text" class="form-control" id="answer" placeholder="Please Enter Your Answer Here?" required>
+                            <input type="text" class="form-control" id="answer" placeholder="Please Enter Your Answer Here?" value="This is the answer" required>
                         </div>
 
                         <div class="form-group">
                             <label>Display Order:</label>
-                            <input type="text" class="form-control" id="display" placeholder="Display Order?" required>
+                            <input type="number" class="form-control" id="display" value=43 placeholder="Display Order?" required>
                         </div>
                         <button type="submit" class="btn btn-success" id="btnSubQues">Submit Question</button>
-                        <input type="hidden" id="faqId" />
+                        <input type="hidden" id="faqId"/>
                     </form>
                 </div>
             </div>
@@ -71,28 +72,38 @@
     <script type="text/javascript">
         sabio.page.startUp = function () {
             sabio.page.getUser(sabio.page.success, sabio.page.error)
-            $("#btnFaq").on("click", sabio.page.handlers.getCategories);
-            $("#btnSubQues").on("click", sabio.page.handlers.newFaq);
+            $("#btnFaq").on("click", sabio.page.handlers.onGetCategories);
+            $("#btnSubQues").on("click", sabio.page.handlers.onNewFaq);
+            $("#btnMyFaq").on("click", sabio.page.handlers.onViewFaqList);
+
+            var id = location.search;
+            id = id.slice(4)
+            if (id) {
+                sabio.page.getFaq(id, sabio.page.loadFaqSuccess, sabio.page.error)
+            }
+            sabio.page.getFaq(sabio.page.getUsersFaqSuccess, sabio.page.error); 
         }
 
-        sabio.page.handlers.getCategories = function () {
-            $(".faq").css("display", "inherit");
-            sabio.page.getCategories(sabio.page.categorySuccess, sabio.page.error);
-        }
-
-        sabio.page.handlers.newFaq = function (e) {
+        sabio.page.handlers.onNewFaq = function (e) {
+            console.log("clicking")
+            //$(".faq").css("display", "inherit");
             e.preventDefault();
             var data = sabio.page.readQuestion();
             sabio.page.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
             var id = $("#faqId").val();
-            console.log(id)
             if (id) {
-                $("#btnSubQues").text("Update FAQ");
-                sabio.page.editFaq(data, id, sabio.page.faqSuccess, sabio.page.error);
+                $("h1").text("-edit");
+                sabio.page.editFaq(data, id, sabio.page.editSuccess, sabio.page.error);
             }
-            else {
-                $("#btnSubQues").text("Submit FAQ");
-            }
+        }
+
+        sabio.page.handlers.onGetCategories = function () {
+            // $(".faq").css("display", "inherit");
+            sabio.page.getCategories(sabio.page.categorySuccess, sabio.page.error);
+        }
+
+        sabio.page.handlers.onViewFaqList = function () {
+            console.log("clicking")
         }
 
         sabio.page.readQuestion = function () {
@@ -106,30 +117,46 @@
             return questionData
         }
 
+        sabio.page.loadFaq = function (data, status, xhr) {
+            sabio.page.getFaq(data, id, sabio.page.loadFaqSuccess, sabio.page.error);
+        }
+
         sabio.page.success = function (data, status, xhr) {
-            $("h1").text(data.item.firstName + " " + data.item.lastName);
+            $("h1").text(data.item.firstName + " " + data.item.lastName);  
+        }
+
+        sabio.page.getUsersFaqSuccess = function (data, status, xhr) {
+            console.log("success");
+            console.log(data)
         }
 
         sabio.page.categorySuccess = function (data, status, xhr) {
             data.items.forEach(function (item) {
                 $(".dropdown").append("<option value =" + item.id + ">" + item.name + "</option>");
-            })
-        }
-
-        sabio.page.editSuccess = function (data, status, xhr) {
-            $("#btnSubQues").text("Update FAQ");
-            console.log(window.location)
+            });
         }
 
         sabio.page.faqSuccess = function (data, status, xhr) {
             var id = data.item
             console.log(id)
-            $("#faqId").val(id)
+            $("#faqId").val(id);
+            $("#btnSubQues").text("Update FAQ");
+        }
+
+        sabio.page.editSuccess = function (data, status, xhr) {
+            console.log("edit")
+        }
+
+        sabio.page.loadFaqSuccess = function (data, id, status, xhr) {
+            $("#question").val(data.item.question)
+            $("#answer").val(data.item.answer)
+            $("#display").val(data.item.displayOrder)
+            $(".dropdown").append("<option value = " + data.item.faqCategoryId + " > " + data.item.category + "</option>")
         }
 
         sabio.page.error = function (xhr, status, errorText) {
             console.log(errorText);
-        }
+        }  
     </script>
 </body>
 </html>
