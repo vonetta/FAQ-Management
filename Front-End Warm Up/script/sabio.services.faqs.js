@@ -1,7 +1,7 @@
 ﻿var userUrl = "https://pacoima-ypi.azurewebsites.net/api/users/";
 var url = "https://pacoima-ypi.azurewebsites.net/api/";
 
-sabio.page.newFaq = function (data, onSuccess, onError) {
+sabio.services.newFaq = function (data, onSuccess, onError) {
     var settings = {
         cache: false,
         type: "POST",
@@ -16,7 +16,7 @@ sabio.page.newFaq = function (data, onSuccess, onError) {
     $.ajax(url + "faqs", settings);
 }
 
-sabio.page.editFaq = function (data, id, onSuccess, onError) {
+sabio.services.editFaq = function (data,id, onSuccess, onError) {
     var settings = {
         cache: false,
         type: "PUT",
@@ -31,7 +31,7 @@ sabio.page.editFaq = function (data, id, onSuccess, onError) {
     $.ajax(url + "faqs/" + id, settings);
 }
 
-sabio.page.getFaq = function ( id, onSuccess, onError) {
+sabio.services.getFaqById = function (id, onSuccess, onError) {
     var settings = {
         cache: false,
         type: "GET",
@@ -44,10 +44,10 @@ sabio.page.getFaq = function ( id, onSuccess, onError) {
     $.ajax(url + "faqs/" + id, settings);
 }
 
-sabio.page.getFaq = function ( onSuccess, onError) {
+sabio.services.getFaqUser = function (onSuccess, onError) {
     var settings = {
         cache: false,
-        type: "GET",
+        type: "GET", 
         success: onSuccess,
         error: onError,
         xhrFields: {

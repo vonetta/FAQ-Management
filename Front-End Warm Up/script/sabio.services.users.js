@@ -1,7 +1,7 @@
 ﻿var userUrl = "https://pacoima-ypi.azurewebsites.net/api/users/";
 var url = "https://pacoima-ypi.azurewebsites.net/api/";
 
- sabio.page.register = function (data, onSuccess, onError) {
+ sabio.services.register = function (data, onSuccess, onError) {
 	var settings = {
 		cache: false,
 		contentType: "application/json",
@@ -16,7 +16,7 @@ var url = "https://pacoima-ypi.azurewebsites.net/api/";
 	$.ajax(userUrl + "register/employer", settings);
  }
 
- sabio.page.login = function (data, onSuccess, onError) {
+ sabio.services.login = function (data, onSuccess, onError) {
  	var settings = {
  		cache: false,
  		contentType: "application/json",
@@ -31,7 +31,7 @@ var url = "https://pacoima-ypi.azurewebsites.net/api/";
  	$.ajax(userUrl + "login/force", settings);
  }
 
- sabio.page.logout = function (onSuccess, onError) {
+ sabio.services.logout = function (onSuccess, onError) {
  	var settings = {
  		cache: false,
  		type: "GET",
@@ -44,7 +44,7 @@ var url = "https://pacoima-ypi.azurewebsites.net/api/";
  	$.ajax(userUrl + "logout", settings);
  }
 
- sabio.page.getUser = function (onSuccess, onError) {
+ sabio.services.getUser = function (onSuccess, onError) {
  	var settings = {
  		cache: false,
  		type: "GET",
@@ -57,7 +57,7 @@ var url = "https://pacoima-ypi.azurewebsites.net/api/";
  	$.ajax(url + "people/currentuser", settings);
  }
 
- sabio.page.getCategories = function (onSuccess, onError) {
+ sabio.services.getCategories = function (onSuccess, onError) {
      var settings = {
          cache: false,
          type: "GET",

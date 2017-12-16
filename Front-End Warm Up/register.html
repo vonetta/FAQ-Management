@@ -99,7 +99,7 @@
             var data = sabio.page.readData();
             console.log(data);
             //sabio.page.validation(data)
-            sabio.page.register(data, sabio.page.success, sabio.page.error)
+            sabio.services.register(data, sabio.page.success, sabio.page.error)
         }
 
         sabio.page.readData = function () {

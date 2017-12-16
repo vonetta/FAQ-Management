@@ -13,24 +13,31 @@
     <div class="container-fluid">
         <header>
             <nav>
-                <ul class="nav nav-tabs">
-                    <li role="presentation" class="active "><a href="home.html">Home</a></li>
+                <ul class="nav nav-default">
+                    <li role="presentation" class="pull-left active"><a href="home.html">Home</a></li>
+                    <li role="presentation" class="pull-right" id="btnQuiz"><button type="button" class="btn btn-warning" id="btnQuiz">My Quizzes</button></li>
+                    <li role="presentation" class="pull-right" id="btnMyFaq"><button type="button" class="btn btn-info" id="btnMyFaq">My FAQ's</button></li>
+                    <li role="presentation" class="pull-right" id="btnFaq"><button type="button" class="btn btn-success" id="btnFaq">New FAQ's</button></li>
+
                     <li role="presentation" class="pull-right" id="btnLogout"><a href="login.html">Logout</a></li>
                     <li role="presentation" class="pull-right"><a href="login.html">Login</a></li>
                     <li role="presentation" class="pull-right"><a href="register.html">Register</a></li>
                 </ul>
             </nav>
         </header>
+        <nav class="sec-nav hide">
+            <ul class="nav nav-tabs">
+                <!--<li role="presentation" class="active" id="cat1"><a href="#General">General</a></li>
+                <li role="presentation" id="cat2"><a href="#VIP">VIP</a></li>
+                <li role="presentation"><a href="#Guard">Guard</a></li>
+                <li role="presentation"><a href="#Security Specialist">Security Specialist</a></li>
+                <li role="presentation"><a href="#Financing">Financing</a></li>
+                <li role="presentation"><a href="#Corporate">Corporate</a></li>
+                <li role="presentation"><a href="#Special Security">Special Security</a></li>-->
+            </ul>
+        </nav>
         <div class="container">
             <h1 class="text-left">Logged in User Name</h1>
-
-            <div class="row">
-                <div class="text-center">
-                    <button type="button" class="btn btn-success" id="btnFaq">My FAQ's</button>
-                    <button type="button" class="btn btn-warning" id="btnQuiz">My Quizzes</button>
-                    <button type="button" class="btn btn-info" id="btnMyFaq">My FAQ's</button>
-                </div>
-            </div>
             <div class="row">
                 <div class="faq">
                     <form class="col-md-8 col-md-offset-2">
@@ -42,25 +49,47 @@
 
                         <div class="form-group">
                             <label>Question:</label>
-                            <input type="text" class="form-control" id="question" placeholder="Please Enter Your Question Here?" value="This is my question" required>
+                            <input type="text" class="form-control" id="question" placeholder="Please Enter Your Question Here?" required>
                         </div>
 
                         <div class="form-group">
                             <label>Answer:</label>
-                            <input type="text" class="form-control" id="answer" placeholder="Please Enter Your Answer Here?" value="This is the answer" required>
+                            <input type="text" class="form-control" id="answer" placeholder="Please Enter Your Answer Here?" required>
                         </div>
 
                         <div class="form-group">
                             <label>Display Order:</label>
-                            <input type="number" class="form-control" id="display" value=43 placeholder="Display Order?" required>
+                            <input type="number" class="form-control" id="display" placeholder="Display Order?" required>
                         </div>
                         <button type="submit" class="btn btn-success" id="btnSubQues">Submit Question</button>
-                        <input type="hidden" id="faqId"/>
+                        <input type="hidden" id="faqId" />
                     </form>
                 </div>
             </div>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+            </div>
         </div>
     </div>
+    <script type="text/html" id="template">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Collapsible Group Item #1
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body answer">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+
+
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
@@ -71,41 +100,60 @@
 
     <script type="text/javascript">
         sabio.page.startUp = function () {
-            sabio.page.getUser(sabio.page.success, sabio.page.error)
+            sabio.services.getUser(sabio.page.getUserSuccess, sabio.page.error)
             $("#btnFaq").on("click", sabio.page.handlers.onGetCategories);
             $("#btnSubQues").on("click", sabio.page.handlers.onNewFaq);
             $("#btnMyFaq").on("click", sabio.page.handlers.onViewFaqList);
+            $(".sec-nav ul").on("click", "li", sabio.page.handlers.onNavClicked);
 
-            var id = location.search;
-            id = id.slice(4)
-            if (id) {
-                sabio.page.getFaq(id, sabio.page.loadFaqSuccess, sabio.page.error)
+            var params = new URLSearchParams(window.location.search);
+            var faqId = params.get('id');
+
+            if (faqId) {
+                sabio.page.loadFaq(faqId, sabio.page.loadFaqSuccess, sabio.page.error);
             }
-            sabio.page.getFaq(sabio.page.getUsersFaqSuccess, sabio.page.error); 
+            sabio.page.selectCategory()   
         }
 
-        sabio.page.handlers.onNewFaq = function (e) {
-            console.log("clicking")
-            //$(".faq").css("display", "inherit");
-            e.preventDefault();
-            var data = sabio.page.readQuestion();
-            sabio.page.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
-            var id = $("#faqId").val();
-            if (id) {
-                $("h1").text("-edit");
-                sabio.page.editFaq(data, id, sabio.page.editSuccess, sabio.page.error);
-            }
+        sabio.page.handlers.onNavClicked = function (evt) {
+            console.log("nav click")
+            var li = null;
+            li = evt.currentTarget;
+            console.log(li)
+            sabio.page.selectCategory(li);
+           
+        }
+
+        sabio.page.selectCategory = function (element) {
+            $(".sec-nav ul li").removeClass("active");
+            $(element).addClass("active");
         }
 
         sabio.page.handlers.onGetCategories = function () {
-            // $(".faq").css("display", "inherit");
-            sabio.page.getCategories(sabio.page.categorySuccess, sabio.page.error);
+            $(".faq").css("display", "inherit");
+            sabio.services.getCategories(sabio.page.loadCategorySuccess, sabio.page.error);
         }
-
+        sabio.page.handlers.onNewFaq = function (e) {
+            $(".faq").css("display", "inherit");
+            e.preventDefault();
+            var data = sabio.page.readQuestion();
+            sabio.services.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
+            var id = $("#faqId").val();
+            if (id) {
+                sabio.services.editFaq(data, id, sabio.page.editSuccess, sabio.page.error);
+            }
+            else {
+                sabio.services.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
+            }
+        }
         sabio.page.handlers.onViewFaqList = function () {
-            console.log("clicking")
+       
+            $(".sec-nav").removeClass("hide");
+            $(".faq").css("display", "none");
+            sabio.services.getCategories(sabio.page.loadCategorySuccessFaqList, sabio.page.error);
+    
+            //sabio.services.getFaqUser(sabio.page.getUserListSuccess, sabio.page.error);
         }
-
         sabio.page.readQuestion = function () {
             var questionData = {
                 faqCategoryId: $("#dropdown").val(),
@@ -117,28 +165,76 @@
             return questionData
         }
 
-        sabio.page.loadFaq = function (data, status, xhr) {
-            sabio.page.getFaq(data, id, sabio.page.loadFaqSuccess, sabio.page.error);
+        sabio.page.loadFaq = function (id, status, xhr) {
+            sabio.services.getFaqById(id, sabio.page.loadFaqSuccess, sabio.page.error);
         }
 
-        sabio.page.success = function (data, status, xhr) {
-            $("h1").text(data.item.firstName + " " + data.item.lastName);  
+        sabio.page.getUserSuccess = function (data, status, xhr) {
+            $("h1").text(data.item.firstName + " " + data.item.lastName);
         }
 
-        sabio.page.getUsersFaqSuccess = function (data, status, xhr) {
-            console.log("success");
-            console.log(data)
+        sabio.page.getUserListSuccess = function (data, status, xhr) {
+            for (var i = 0; i < data.items.length; i++) {
+                if (data.items[i].category === "General") {    
+                    sabio.page.sabio.page.selectCategory("")
+                    sabio.page.writeUserFaqList(data.items[i])
+                }
+
+                else if (data.items[i].category === "VIP") { 
+                    sabio.page.writeUserFaqList(data.items[i])
+                }
+
+                else if (data.items[i].category === "Guard") {
+                    sabio.page.writeUserFaqList(data.items[i])
+                }
+
+                else if (data.items[i].category === "Security Specialist") {
+                    sabio.page.writeUserFaqList(data.items[i])
+                }
+
+                else if (data.items[i].category === "Financing") {
+                    sabio.page.writeUserFaqList(data.items[i])
+                }
+
+                else if (data.items[i].category === "Corporate") {
+                    sabio.page.writeUserFaqList(data.items[i])
+                }
+
+                else {
+                    sabio.page.writeUserFaqList(data.items[i])
+                }
+
+            }
         }
 
-        sabio.page.categorySuccess = function (data, status, xhr) {
+        sabio.page.loadTemplate = function () {
+            return $($("#template").html());
+        }
+
+        sabio.page.writeUserFaqList = function (data) {
+            var template = sabio.page.loadTemplate();
+            template.find("h4 a").text(data.question + " " + data.category);
+            template.find(".answer").text(data.answer);
+
+            $("#accordion").append(template);
+        }
+
+        sabio.page.loadCategorySuccess = function (data, status, xhr) {
             data.items.forEach(function (item) {
                 $(".dropdown").append("<option value =" + item.id + ">" + item.name + "</option>");
             });
         }
 
+        sabio.page.loadCategorySuccessFaqList = function (data, status, xhr) {
+                
+            data.items.forEach(function (item) {
+                $(".sec-nav ul").append("<li role='presentation' id=" + item.faqCategoryId + "><a href='#General'>" + item.name +"</a></li>");               
+            });
+                 $(".sec-nav").empty("");
+        }
+
         sabio.page.faqSuccess = function (data, status, xhr) {
             var id = data.item
-            console.log(id)
             $("#faqId").val(id);
             $("#btnSubQues").text("Update FAQ");
         }
@@ -147,16 +243,16 @@
             console.log("edit")
         }
 
-        sabio.page.loadFaqSuccess = function (data, id, status, xhr) {
+        sabio.page.loadFaqSuccess = function (data, status, xhr) {
             $("#question").val(data.item.question)
             $("#answer").val(data.item.answer)
             $("#display").val(data.item.displayOrder)
-            $(".dropdown").append("<option value = " + data.item.faqCategoryId + " > " + data.item.category + "</option>")
+            $(".dropdown").append("<option value =" + data.item.faqCategoryId + ">" + data.item.category + "</option>");
         }
 
         sabio.page.error = function (xhr, status, errorText) {
             console.log(errorText);
-        }  
+        }
     </script>
 </body>
 </html>

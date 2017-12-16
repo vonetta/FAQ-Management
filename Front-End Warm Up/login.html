@@ -51,7 +51,7 @@
         sabio.page.handlers.login = function (e) {
             e.preventDefault();
             var data = sabio.page.readLogin();
-            sabio.page.login(data, sabio.page.success, sabio.page.error);
+            sabio.services.login(data, sabio.page.success, sabio.page.error);
         }
 
         sabio.page.readLogin = function () {
