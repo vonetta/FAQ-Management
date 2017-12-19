@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Home Page</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/custom.css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <header>
+            <nav>
+                <ul class="nav nav-default">
+                    <li role="presentation" class="pull-right" id="btnLogout"><a href="#">Logout</a></li>
+                    <li role="presentation" class="pull-left"><a href="home.html">Home</a></li>
+                    <li role="presentation" class="pull-right" id="btnQuiz"><a href="#">My Quizzes</a></li>
+                    <li role="presentation" class="pull-right" id="btnMyFaq"><a href="home.html">My FAQ's</a></li>
+                    <li role="presentation" class="pull-right" id="btnFaq"><a href="newFaq.html" class="active">New FAQ's</a></li>
+                    <li role="presentation" class="pull-right"><a href="login.html">Login</a></li>
+                    <li role="presentation" class="pull-right"><a href="register.html">Register</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <nav class="sec-nav hide">
+            <ul class="nav nav-tabs cat-list" role="tablist"></ul>
+        </nav>
+        <div class="container">
+            <h1 class="text-left">Logged in User Name</h1>
+            <div class="row">
+                <div class="faq">
+                    <form class="col-md-8 col-md-offset-2">
+                        <div class="form-group">
+
+                            <label>FAQ Categories:</label><br />
+                            <select class="form-control dropdown" id="dropdown"></select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Question:</label>
+                            <input type="text" class="form-control" id="question" placeholder="Please Enter Your Question Here?" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Answer:</label>
+                            <input type="text" class="form-control" id="answer" placeholder="Please Enter Your Answer Here?" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Display Order:</label>
+                            <input type="number" class="form-control" id="display" placeholder="Display Order?" required>
+                        </div>
+                        <button type="submit" class="btn btn-success pull-right" id="btnSubQues">Submit Question</button>
+                        <button type="submit" class="btn btn-default pull-left" id="btnNewQues">New Question</button>
+                        <input type="hidden" id="faqId" />
+                    </form>
+                </div>
+            </div>         
+        </div>
+    </div>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://sabioapi2.azurewebsites.net/scripts/sabio.js"></script>
+    <script src="script/sabio.services.users.js"></script>
+    <script src="script/sabio.services.faqs.js"></script>
+
+    <script type="text/javascript">
+            sabio.page.startUp = function () {
+                sabio.services.getUser(sabio.page.getUserSuccess, sabio.page.error)
+                $("#btnFaq").on("click", sabio.page.handlers.onGetCategories);
+                $("#btnSubQues").on("click", sabio.page.handlers.onNewFaq);
+                $("#btnNewQues").on("click", sabio.page.handlers.onCreateNewFaq);
+                $("#btnLogout").on("click", sabio.page.handlers.onLogout);
+               // $(".sec-nav ul").on("click", "li", sabio.page.handlers.onNavClicked);
+    
+                sabio.services.getCategories(sabio.page.loadCategorySuccess, sabio.page.error);
+                var params = new URLSearchParams(window.location.search);
+                var faqId = params.get('id');
+
+                if (faqId) {
+                    sabio.page.loadFaq(faqId, sabio.page.loadFaqSuccess, sabio.page.error);
+                }
+
+            }
+            sabio.page.handlers.onNavClicked = function (evt) {
+                var li = null;
+                li = evt.currentTarget;
+                sabio.services.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error);
+                sabio.page.selectCategory();
+            }
+            sabio.page.handlers.onGetCategories = function () {
+                $(".faq").css("display", "inherit");
+                sabio.services.getCategories(sabio.page.loadCategorySuccess, sabio.page.error);
+            }
+            sabio.page.onCreateNewFaq = function () {
+                $("form")[0].reset();
+            }
+            sabio.page.handlers.onNewFaq = function (e) {
+                e.preventDefault();
+              
+                var data = sabio.page.readQuestion();
+                sabio.services.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
+                var id = $("#faqId").val();
+                if (id) {
+                    sabio.services.editFaq(data, id, sabio.page.editSuccess, sabio.page.error);
+                }
+                else {
+                    sabio.services.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
+                }
+            }
+            sabio.page.handlers.onViewFaqList = function () {
+
+                $(".sec-nav").removeClass("hide");
+                $(".faq").css("display", "none");
+                $(".cat-list").empty();
+                sabio.page.selectCategory();
+                sabio.services.getCategories(sabio.page.loadCategorySuccessFaqList, sabio.page.error);
+            }
+            //sabio.page.handlers.onEditClicked = function () {
+            //    console.log("edit question")
+            //    $(".faq").css("display", "inherit");
+            //   // sabio.page.loadFaq(id)
+            //}
+            sabio.page.selectCategory = function () {
+                $(" ul li").removeClass("active");
+                $(this).addClass("active");
+            }
+
+            sabio.page.readQuestion = function () {
+                var questionData = {
+                    faqCategoryId: $("#dropdown").val(),
+                    question: $("#question").val(),
+                    answer: $("#answer").val(),
+                    displayOrder: $("#display").val(),
+                    id: $("#faqId").val()
+                }
+                return questionData
+            }
+
+            sabio.page.loadFaq = function (id, status, xhr) {
+                sabio.services.getFaqById(id, sabio.page.loadFaqSuccess, sabio.page.error);
+            }
+
+            sabio.page.getUserSuccess = function (data, status, xhr) {
+                $("h1").text(data.item.firstName + " " + data.item.lastName);
+            }
+
+            sabio.page.getUserListSuccess = function (data, status, xhr) {
+                $("#accordion").empty();
+                for (var i = 0; i < data.items.length; i++) {
+                    if (data.items[i].faqCategoryId == $("li.active").data("id")) {
+                        sabio.page.handlers.onNavClicked
+                        sabio.page.writeUserFaqList(data.items[i]);
+                    }
+                }
+            }
+
+            sabio.page.writeUserFaqList = function (data) {
+                var template = sabio.page.loadTemplate();
+                template.find("h4 a").text(data.question + " " + data.category + " " + data.displayOrder);
+                template.find(".answer").text(data.answer);
+                $("#accordion").append(template);
+            }
+
+            sabio.page.loadCategorySuccessFaqList = function (data, status, xhr) {
+                //var data = JSON.parse(data)
+                //console.log( Array .isArray(data))
+                data.items.forEach(function (item) {
+                    sabio.page.selectCategory();
+                    $(".sec-nav ul").append("<li role='presentation' data-id=" + item.id + "><a href=#" + item.name + " aria-controls='" + item.name + "' role='tab' data-toggle='tab'>" + item.name + "</a></li>");
+                });
+            }
+
+            sabio.page.loadTemplate = function () {
+                return $($("#template").html());
+            }
+
+            sabio.page.loadCategorySuccess = function (data, status, xhr) {
+                data.items.forEach(function (item) {
+                    $(".dropdown").append("<option value =" + item.id + ">" + item.name + "</option>");
+                });
+            }
+
+            sabio.page.faqSuccess = function (data, status, xhr) {
+                var id = data.item
+                $("#faqId").val(id);
+                $("#btnSubQues").text("Update FAQ");
+            }
+
+            sabio.page.editSuccess = function (data, status, xhr) {
+                console.log("edit")
+            }
+
+            sabio.page.loadFaqSuccess = function (data, status, xhr) {
+                $("#question").val(data.item.question)
+                $("#answer").val(data.item.answer)
+                $("#display").val(data.item.displayOrder)
+                $(".dropdown").append("<option value =" + data.item.faqCategoryId + ">" + data.item.category + "</option>");
+            }
+
+            sabio.page.error = function (xhr, status, errorText) {
+                console.log(errorText);
+            }
+
+            sabio.page.handlers.onLogout = function () {
+                sabio.services.logout(sabio.page.logoutSuccess, sabio.page.error)
+            }
+    </script>
+</body>
+</html>

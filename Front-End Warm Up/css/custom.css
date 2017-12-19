@@ -1,16 +1,60 @@
-﻿body {
-    background:lightgray;
+﻿.active {
+    border-top: 2px white solid;
 }
 
-ul{
-    list-style-type:none;
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #F9FFF4;
+    width: 100%;
+}
+
+header {
+    background: #ff3a20;
+    padding: 2%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+    ul li {
+        font-size: 1.2em;
+    }
+
+header nav ul li a {
+    color: white;
+}
+
+.sec-nav ul {
+    display: flex;
+    flex-direction: row;
+}
+
+.sec-nav ul {
+    justify-content: space-between;
+    margin: auto;
+}
+
+    .sec-nav ul li {
+        color: black;
+    }
+
+h1 {
+    font-size: 2em;
+    color: #29339B;
 }
 
 .alert {
-display: none;
+    display: none;
 }
 
-.faq {
-    display:none;
+input {
+    border: 0;
+    padding: 7px 0;
+    border-bottom: 1px solid #ccc;
 }
-  
+

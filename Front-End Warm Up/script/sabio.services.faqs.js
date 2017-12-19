@@ -44,7 +44,7 @@ sabio.services.getFaqById = function (id, onSuccess, onError) {
     $.ajax(url + "faqs/" + id, settings);
 }
 
-sabio.services.getFaqUser = function (onSuccess, onError) {
+sabio.services.getFaqUserQuestions = function (onSuccess, onError) {
     var settings = {
         cache: false,
         type: "GET", 

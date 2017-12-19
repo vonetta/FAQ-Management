@@ -14,245 +14,157 @@
         <header>
             <nav>
                 <ul class="nav nav-default">
-                    <li role="presentation" class="pull-left active"><a href="home.html">Home</a></li>
-                    <li role="presentation" class="pull-right" id="btnQuiz"><button type="button" class="btn btn-warning" id="btnQuiz">My Quizzes</button></li>
-                    <li role="presentation" class="pull-right" id="btnMyFaq"><button type="button" class="btn btn-info" id="btnMyFaq">My FAQ's</button></li>
-                    <li role="presentation" class="pull-right" id="btnFaq"><button type="button" class="btn btn-success" id="btnFaq">New FAQ's</button></li>
-
-                    <li role="presentation" class="pull-right" id="btnLogout"><a href="login.html">Logout</a></li>
-                    <li role="presentation" class="pull-right"><a href="login.html">Login</a></li>
-                    <li role="presentation" class="pull-right"><a href="register.html">Register</a></li>
+                    <li role="presentation" class="pull-right" id="btnLogout"><a href="#">Logout</a></li>
+                    <li role="presentation" class="pull-left"><a href="home.html">Home</a></li>
+                    <li role="presentation" class="pull-right" id="btnQuiz"><a href="#">My Quizzes</a></li>
+                    <li role="presentation" class="pull-right" id="btnMyFaq"><a href="#" class="active">My FAQ's</a></li>
+                    <li role="presentation" class="pull-right" id="btnFaq"><a href="newFaq.html" >New FAQ's</a></li>
+                    <!--<li role="presentation" class="pull-right"><a href="login.html">Login</a></li>
+                    <li role="presentation" class="pull-right"><a href="register.html">Register</a></li>-->
                 </ul>
             </nav>
         </header>
-        <nav class="sec-nav hide">
-            <ul class="nav nav-tabs">
-                <!--<li role="presentation" class="active" id="cat1"><a href="#General">General</a></li>
-                <li role="presentation" id="cat2"><a href="#VIP">VIP</a></li>
-                <li role="presentation"><a href="#Guard">Guard</a></li>
-                <li role="presentation"><a href="#Security Specialist">Security Specialist</a></li>
-                <li role="presentation"><a href="#Financing">Financing</a></li>
-                <li role="presentation"><a href="#Corporate">Corporate</a></li>
-                <li role="presentation"><a href="#Special Security">Special Security</a></li>-->
-            </ul>
+
+        <nav class="sec-nav">
+            <ul class="nav nav-tabs cat-list" role="tablist"></ul>
         </nav>
         <div class="container">
             <h1 class="text-left">Logged in User Name</h1>
-            <div class="row">
-                <div class="faq">
-                    <form class="col-md-8 col-md-offset-2">
-                        <div class="form-group">
-
-                            <label>FAQ Categories:</label><br />
-                            <select class="form-control dropdown" id="dropdown"></select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Question:</label>
-                            <input type="text" class="form-control" id="question" placeholder="Please Enter Your Question Here?" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Answer:</label>
-                            <input type="text" class="form-control" id="answer" placeholder="Please Enter Your Answer Here?" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Display Order:</label>
-                            <input type="number" class="form-control" id="display" placeholder="Display Order?" required>
-                        </div>
-                        <button type="submit" class="btn btn-success" id="btnSubQues">Submit Question</button>
-                        <input type="hidden" id="faqId" />
-                    </form>
-                </div>
-            </div>
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-
+            <div class="accordion-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
             </div>
         </div>
-    </div>
-    <script type="text/html" id="template">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Collapsible Group Item #1
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body answer">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-            </div>
         </div>
 
+        <script type="text/html" id="template">
+            <div class="panel panel-default">
+                 <div>            
+                     <input type="hidden" id="faqId" class="form-control"/>
+                 </div>
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Collapsible Group Item #1
+                        </a>
+                             <button type='button' class='btn btn-warning pull-right' id="btnEdit">Edit </button>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body answer">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                        <br />
+                    </div>
 
-    </script>
+                </div>
+            </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="http://sabioapi2.azurewebsites.net/scripts/sabio.js"></script>
-    <script src="script/sabio.services.users.js"></script>
-    <script src="script/sabio.services.faqs.js"></script>
+        </script>
 
-    <script type="text/javascript">
-        sabio.page.startUp = function () {
-            sabio.services.getUser(sabio.page.getUserSuccess, sabio.page.error)
-            $("#btnFaq").on("click", sabio.page.handlers.onGetCategories);
-            $("#btnSubQues").on("click", sabio.page.handlers.onNewFaq);
-            $("#btnMyFaq").on("click", sabio.page.handlers.onViewFaqList);
-            $(".sec-nav ul").on("click", "li", sabio.page.handlers.onNavClicked);
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="http://sabioapi2.azurewebsites.net/scripts/sabio.js"></script>
+        <script src="script/sabio.services.users.js"></script>
+        <script src="script/sabio.services.faqs.js"></script>
 
-            var params = new URLSearchParams(window.location.search);
-            var faqId = params.get('id');
+        <script type="text/javascript">
+            sabio.page.activeQuestion = null;
+            sabio.page.startUp = function () {
+                sabio.services.getUser(sabio.page.getUserSuccess, sabio.page.error)          
+              // $("#btnMyFaq").on("click", sabio.page.handlers.onViewFaqList);
+                $(".sec-nav ul").on("click", "li", sabio.page.handlers.onNavClicked);
+                $("#accordion").on("click", "#btnEdit", sabio.page.handlers.onEditClicked);
+                $("#btnLogout").on("click", sabio.page.handlers.onLogout);
+                var params = new URLSearchParams(window.location.search);
+                var faqId = params.get('id');
 
-            if (faqId) {
-                sabio.page.loadFaq(faqId, sabio.page.loadFaqSuccess, sabio.page.error);
+                if (faqId) {
+                    sabio.page.loadFaq(faqId, sabio.page.loadFaqSuccess, sabio.page.error);
+                }
+               
+                sabio.services.getCategories(sabio.page.loadCategorySuccessFaqList, sabio.page.error);           
             }
-            sabio.page.selectCategory()   
-        }
-
-        sabio.page.handlers.onNavClicked = function (evt) {
-            console.log("nav click")
-            var li = null;
-            li = evt.currentTarget;
-            console.log(li)
-            sabio.page.selectCategory(li);
-           
-        }
-
-        sabio.page.selectCategory = function (element) {
-            $(".sec-nav ul li").removeClass("active");
-            $(element).addClass("active");
-        }
-
-        sabio.page.handlers.onGetCategories = function () {
-            $(".faq").css("display", "inherit");
-            sabio.services.getCategories(sabio.page.loadCategorySuccess, sabio.page.error);
-        }
-        sabio.page.handlers.onNewFaq = function (e) {
-            $(".faq").css("display", "inherit");
-            e.preventDefault();
-            var data = sabio.page.readQuestion();
-            sabio.services.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
-            var id = $("#faqId").val();
-            if (id) {
-                sabio.services.editFaq(data, id, sabio.page.editSuccess, sabio.page.error);
+         
+            sabio.page.handlers.onNavClicked = function (evt) {
+                var li = null;
+                li = evt.currentTarget;
+                sabio.services.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error);
+                sabio.page.selectCategory();
             }
-            else {
-                sabio.services.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
+
+            sabio.page.selectCategory = function () {
+                $(" ul li").removeClass("active");
+                $(this).addClass("active");
+              
             }
-        }
-        sabio.page.handlers.onViewFaqList = function () {
-       
-            $(".sec-nav").removeClass("hide");
-            $(".faq").css("display", "none");
-            sabio.services.getCategories(sabio.page.loadCategorySuccessFaqList, sabio.page.error);
-    
-            //sabio.services.getFaqUser(sabio.page.getUserListSuccess, sabio.page.error);
-        }
-        sabio.page.readQuestion = function () {
-            var questionData = {
-                faqCategoryId: $("#dropdown").val(),
-                question: $("#question").val(),
-                answer: $("#answer").val(),
-                displayOrder: $("#display").val(),
-                id: $("#faqId").val()
+            sabio.page.handlers.onEditClicked = function () {
+                sabio.page.activeQuestion = this;
+                console.log(sabio.page.activeQuestion)
+                var id =  $("#faqId").val();
+                //sabio.page.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error)
+                // $(".faq").css("display", "inherit");
+      
+           window.location = "newFaq.html?id=" + id 
             }
-            return questionData
-        }
 
-        sabio.page.loadFaq = function (id, status, xhr) {
-            sabio.services.getFaqById(id, sabio.page.loadFaqSuccess, sabio.page.error);
-        }
-
-        sabio.page.getUserSuccess = function (data, status, xhr) {
-            $("h1").text(data.item.firstName + " " + data.item.lastName);
-        }
-
-        sabio.page.getUserListSuccess = function (data, status, xhr) {
-            for (var i = 0; i < data.items.length; i++) {
-                if (data.items[i].category === "General") {    
-                    sabio.page.sabio.page.selectCategory("")
-                    sabio.page.writeUserFaqList(data.items[i])
-                }
-
-                else if (data.items[i].category === "VIP") { 
-                    sabio.page.writeUserFaqList(data.items[i])
-                }
-
-                else if (data.items[i].category === "Guard") {
-                    sabio.page.writeUserFaqList(data.items[i])
-                }
-
-                else if (data.items[i].category === "Security Specialist") {
-                    sabio.page.writeUserFaqList(data.items[i])
-                }
-
-                else if (data.items[i].category === "Financing") {
-                    sabio.page.writeUserFaqList(data.items[i])
-                }
-
-                else if (data.items[i].category === "Corporate") {
-                    sabio.page.writeUserFaqList(data.items[i])
-                }
-
-                else {
-                    sabio.page.writeUserFaqList(data.items[i])
-                }
-
+            sabio.page.loadFaq = function (id, status, xhr) {
+                sabio.services.getFaqById(id, sabio.page.loadFaqSuccess, sabio.page.error);
             }
-        }
 
-        sabio.page.loadTemplate = function () {
-            return $($("#template").html());
-        }
+            sabio.page.getUserSuccess = function (data, status, xhr) {
+                $("h1").text(data.item.firstName + " " + data.item.lastName);
+            }
 
-        sabio.page.writeUserFaqList = function (data) {
-            var template = sabio.page.loadTemplate();
-            template.find("h4 a").text(data.question + " " + data.category);
-            template.find(".answer").text(data.answer);
+            sabio.page.getUserListSuccess = function (data, status, xhr) {
+                $("#accordion").empty();
 
-            $("#accordion").append(template);
-        }
+                data.items = data.items.sort(function (a, b) {
+                    return a.displayOrder - b.displayOrder
+                })
+                console.log(data.items)
 
-        sabio.page.loadCategorySuccess = function (data, status, xhr) {
-            data.items.forEach(function (item) {
-                $(".dropdown").append("<option value =" + item.id + ">" + item.name + "</option>");
-            });
-        }
+                for (var i = 0; i < data.items.length; i++) {
+                    if (data.items[i].faqCategoryId == $("li.active").data("id")) {
+                        sabio.page.handlers.onNavClicked                  
+                        sabio.page.writeUserFaqList(data.items[i]); 
+                    }
+                }
+            }
 
-        sabio.page.loadCategorySuccessFaqList = function (data, status, xhr) {
-                
-            data.items.forEach(function (item) {
-                $(".sec-nav ul").append("<li role='presentation' id=" + item.faqCategoryId + "><a href='#General'>" + item.name +"</a></li>");               
-            });
-                 $(".sec-nav").empty("");
-        }
+            sabio.page.writeUserFaqList = function (Faqdata) {
+        
+                var template = sabio.page.loadTemplate();
+                template.find("#faqId").val( Faqdata.id);
+                template.find("h4 a").text(Faqdata.question + " " + Faqdata.category + " " + Faqdata.displayOrder + " " + Faqdata.id);
+                template.find(".answer").text(Faqdata.answer);
+                $("#accordion").append(template);
+            }
 
-        sabio.page.faqSuccess = function (data, status, xhr) {
-            var id = data.item
-            $("#faqId").val(id);
-            $("#btnSubQues").text("Update FAQ");
-        }
+            sabio.page.loadCategorySuccessFaqList = function (data, status, xhr) { 
 
-        sabio.page.editSuccess = function (data, status, xhr) {
-            console.log("edit")
-        }
+                data.items.forEach(function (item) {
+                    //sabio.page.selectCategory();
+                    $(".sec-nav ul").append("<li role='presentation' data-id=" + item.id + "><a href=#" + item.name + " aria-controls='" + item.name + "' role='tab' data-toggle='tab'>" + item.name + "</a></li>");
+                $(".sec-nav ul li").eq(0).addClass("active");     
+                });
+                sabio.services.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error);
+             
+            }
 
-        sabio.page.loadFaqSuccess = function (data, status, xhr) {
-            $("#question").val(data.item.question)
-            $("#answer").val(data.item.answer)
-            $("#display").val(data.item.displayOrder)
-            $(".dropdown").append("<option value =" + data.item.faqCategoryId + ">" + data.item.category + "</option>");
-        }
+            sabio.page.logoutSuccess = function (data, status, xhr) {
+                window.location = "login.html";
+            }
 
-        sabio.page.error = function (xhr, status, errorText) {
-            console.log(errorText);
-        }
-    </script>
+            sabio.page.loadTemplate = function () {
+                return $($("#template").html());
+            }
+
+            sabio.page.error = function (xhr, status, errorText) {
+                console.log(errorText);
+            }
+
+            sabio.page.handlers.onLogout = function () {
+                sabio.services.logout(sabio.page.logoutSuccess, sabio.page.error)
+            }
+        </script>
 </body>
 </html>

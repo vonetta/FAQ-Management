@@ -68,6 +68,7 @@
   <ItemGroup>
     <Content Include="bin\Front-End Warm Up.dll" />
     <Content Include="bin\Front-End Warm Up.pdb" />
+    <Content Include="newFaq.html" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\Front-End Warm Up.csproj.CopyComplete" />
     <Content Include="obj\Debug\Front-End Warm Up.csproj.CoreCompileInputs.cache" />
