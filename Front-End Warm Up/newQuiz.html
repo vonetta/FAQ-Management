@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Home Page</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/custom.css" />
+</head>
+<body>
+    <div class="container-fluid">
+        <header>
+            <nav>
+                <ul class="nav nav-default">
+                    <li role="presentation" class="pull-right" id="btnLogout"><a href="#">Logout</a></li>
+                    <li role="presentation" class="pull-left"><a href="home.html">Home</a></li>
+                    <li role="presentation" class="pull-right" id="btnQuiz"><a href="newQuiz.html" class="active">My Quizzes</a></li>
+                    <li role="presentation" class="pull-right" id="btnMyFaq"><a href="home.html">My FAQ's</a></li>
+                    <li role="presentation" class="pull-right" id="btnFaq"><a href="newFaq.html">New FAQ's</a></li>
+                    <!--<li role="presentation" class="pull-right"><a href="login.html">Login</a></li>
+                <li role="presentation" class="pull-right"><a href="register.html">Register</a></li>-->
+                </ul>
+            </nav>
+        </header>
+        <div class="container">
+
+            <div class="row">
+                <h3 class="text-left">Welcome <span></span></h3>
+            </div>
+            <div class="row">
+                <form class=" well col-md-6 col-md-offset-3">
+
+                    <input type="hidden" id="quizId" />
+
+                    <h1 class="text-center">Create a Quiz</h1>
+                    <div class="form-group">
+                        <label>Quiz Name</label>
+                        <input type="text" class="form-control" id="quizName" placeholder="Quiz Name">
+                    </div>
+                    <div class="form-group">
+                        <!--<label>Default Answer Type</label>
+    <input type="text" class="form-control" id="defaultAnswer" placeholder="Default Answer">-->
+                        <label>Default Answer Type</label>
+                        <select id="defaultAnswer" class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
+                            <option value="0">Select</option>
+                            <option value="Single">Single</option>
+                            <option value="Multiple">Multiple</option>
+                            <option value="Open">Open</option>
+                        </select>
+                        <br><br>
+                    </div>
+
+            <div class="form-group">
+                <label>Randomize Question</label>
+                <p></p>
+                <label class="radio-inline">
+                    <input type="radio" name="ranQues" id="ranQues1" value="true"> Yes
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="ranQues" id="ranQues2" value="false" checked> No
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Randomize Answer</label>
+                <p></p>
+                <label class="radio-inline">
+                    <input type="radio" name="ranAns" id="inlineRadio1" value="true"> Yes
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="ranAns" id="inlineRadio2" value="false" checked> No
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Employee Id</label>
+                <input type="text" id="empId" />
+            </div>
+
+            <button type="submit" class="btn btn-default pull-right" id="btnQuizSub">Submit</button>
+            </form>
+        </div>
+
+            <div class="row hide">
+                <button type="button" class="btn btn-default" id="btnAddQuestion">Add Questions</button>
+                <div class="row newQues">
+               
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/html" id="template">
+        <form class=" well col-md-6 col-md-offset-3">
+
+            <input type="hidden" class="questionId" />
+
+            <h1 class="text-center">Create a Question</h1>
+
+            <div class="form-group">
+                <label>Question</label>
+                <input type="text" class="form-control" id="question" placeholder="Question">
+            </div>
+
+            <div class="form-group">
+
+                <label>Answer Type</label>
+                <select id="defaultAnswer" class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
+                    <option value="0">Select</option>
+                    <option value="Single">Single</option>
+                    <option value="Multiple">Multiple</option>
+                    <option value="Open">Open</option>
+                </select>
+                <br><br>
+            </div>
+
+            <div class="form-group">
+                <label>Answer</label>
+                <input type="text" class="form-control" id="answer" placeholder="Answer">
+            </div>
+
+            <div class="form-group">
+                <label>Open Answer</label>
+                <input type="text" class="form-control" id="open" placeholder="Open Answer Question">
+            </div>
+
+            <div class="form-group">
+                <label>Media</label>
+                <input type="text" class="form-control" id="media" placeholder="Media">
+            </div>
+
+        <button type="submit" class="btn btn-primary pull-left" id="btnNewQues">New Question</button>
+            <button type="submit" class="btn btn-success pull-right" id="btnSubNewQues">Submit Question</button>
+        </form>
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://sabioapi2.azurewebsites.net/scripts/sabio.js"></script>
+    <script src="script/sabio.services.users.js"></script>
+    <script src="script/sabio.services.faqs.js"></script>
+    <script src="script/sabio.services.quizzes.js"></script>
+
+    <script type="text/javascript">
+
+        sabio.page.startUp = function () {
+            sabio.services.getUser(sabio.page.getUserSuccess, sabio.page.error);
+            sabio.services.userEmployeeId(sabio.page.useEmployeeIdSuccess, sabio.page.onError);
+            $("#btnLogout").on("click", sabio.page.handlers.onLogout);
+            $("#btnQuizSub").on("click", sabio.page.handlers.onSubmitNewQuiz);
+            $("#btnAddQuestion").on("click", sabio.page.handlers.onAddQuestion);
+            $("#btnNewQues").on(" click", sabio.page.handlers.onAddQuestion)
+            $("#btnSubNewQues").on("click", sabio.page.handlers.onSubmitNewQuestion);
+        }
+
+        sabio.page.getEmployeeId = (data) => sabio.services.userEmployeeId(sabio.page.useEmployeeIdSuccess, sabio.page.onError);
+    
+        sabio.page.useEmployeeIdSuccess = (data, status, xhr) => {
+            const empId = $("#empId").val(data.item.employerId);
+        }
+
+        sabio.page.handlers.onSubmitNewQuiz = (e) => {
+            console.log("button click")
+            e.preventDefault();
+            let data = sabio.page.readQuizForm();
+
+            const id = $("#quizId").val();
+            if (id) {
+                sabio.services.editQuizEntry(data, id, sabio.page.quizEditSuccess, sabio.page.error);
+            }
+            else {
+        
+                sabio.services.newQuizEntry(data, sabio.page.successNewQuiz, sabio.page.error);
+            }
+        }
+
+        sabio.page.handlers.onAddQuestion = (e) => {
+            e.preventDefault();
+            sabio.page.showNewAddedQuestion()
+        }
+
+        sabio.page.showNewAddedQuestion = () => {
+            const template = sabio.page.loadTemplate();
+            $(".newQues").append(template);
+        }
+
+        sabio.page.handlers.onSubmitNewQuestion = () => {
+            console.log("submit question");
+        }
+
+        sabio.page.readQuizForm = () => {
+           return quizData = {
+               quizName: $("#quizName").val(),
+               defaultAnswerType: $("#defaultAnswer").val(),
+               randomizeQuestions: $("input[name='ranQues']:checked").val(),
+               randomizeAnswers: $("input[name='ranAns']:checked").val(),
+               employerId: $("#empId").val(),
+               id: $("#quizId").val()
+            }           
+        }
+
+        sabio.page.readQuestionForm = () => {
+            return questionData = {
+                    question: "sample string 2",                     
+                    answerType: "sample string 3",                               
+                    openAnswer: "sample string 4",
+                    media: "sample string 5"          
+            }
+        }
+
+        sabio.page.successNewQuiz = (data, status, xhr) => {
+            const id = data.item;
+            $("#quizId").val(id);
+            $("#btnQuizSub").text("Update Quiz");
+            $("#btnAddQuestion").parents("div").removeClass("hide")
+        }
+
+        sabio.page.quizEditSuccess = (data, status, xhr) => console.log("edit success");  
+
+        sabio.page.loadQuizSuccess = (id, status, xhr) => console.log("successfully updated");
+
+        sabio.page.loadTemplate = () => $($("#template").html());
+
+        sabio.page.getUserSuccess = (data, status, xhr) => $("h3 span").text(data.item.firstName + " " + data.item.lastName);
+
+        sabio.page.error = (xhr, status, errorText) => console.log(xhr.response.JSON);
+
+        sabio.page.handlers.onLogout = () => sabio.services.logout(sabio.page.logoutSuccess, sabio.page.error)
+
+        sabio.page.logoutSuccess = (data, status, xhr) => window.location = "login.html";    
+
+    </script>
+</body>
+</html>

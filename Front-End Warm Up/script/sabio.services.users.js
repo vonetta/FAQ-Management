@@ -68,7 +68,20 @@ var url = "https://pacoima-ypi.azurewebsites.net/api/";
          }
      };
      $.ajax(url + "faqcategories", settings);
+
  }
 
+ sabio.services.userEmployeeId = function (onSuccess, onError) {
+     var settings = {
+         cache: false,
+         type: "GET",
+         success: onSuccess,
+         error: onError,
+         xhrFields: {
+             withCredentials: true
+         }
+     };
+     $.ajax(userUrl + "ids", settings)
+ }
 
 

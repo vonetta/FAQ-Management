@@ -16,7 +16,7 @@
                 <ul class="nav nav-default">
                     <li role="presentation" class="pull-right" id="btnLogout"><a href="#">Logout</a></li>
                     <li role="presentation" class="pull-left"><a href="home.html">Home</a></li>
-                    <li role="presentation" class="pull-right" id="btnQuiz"><a href="#">My Quizzes</a></li>
+                    <li role="presentation" class="pull-right" id="btnQuiz"><a href="newQuiz.html">My Quizzes</a></li>
                     <li role="presentation" class="pull-right" id="btnMyFaq"><a href="#" class="active">My FAQ's</a></li>
                     <li role="presentation" class="pull-right" id="btnFaq"><a href="newFaq.html" >New FAQ's</a></li>
                     <!--<li role="presentation" class="pull-right"><a href="login.html">Login</a></li>
@@ -26,11 +26,15 @@
         </header>
 
         <nav class="sec-nav">
-            <ul class="nav nav-tabs cat-list" role="tablist"></ul>
-        </nav>
+            <ul class="nav nav-defult cat-list" role="tablist"></ul>
+        </nav> 
         <div class="container">
-            <h1 class="text-left">Logged in User Name</h1>
+            <div class="row">
+            <h3 class="text-left">Welcome <span></span></h3>
+
+            </div>
             <div class="accordion-group accordion" id="accordion" role="tablist" aria-multiselectable="true">
+
             </div>
         </div>
         </div>
@@ -40,23 +44,21 @@
                  <div>            
                      <input type="hidden" id="faqId" class="form-control"/>
                  </div>
+                  <button type='button' class='btn btn-warning pull-right' id="btnEdit">Edit </button>
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             Collapsible Group Item #1
                         </a>
-                             <button type='button' class='btn btn-warning pull-right' id="btnEdit">Edit </button>
                     </h4>
                 </div>
-                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div id="collapseOne" class="panel-collapse collapse answer" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body answer">
                         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
                         <br />
                     </div>
-
                 </div>
             </div>
-
         </script>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -70,7 +72,6 @@
             sabio.page.activeQuestion = null;
             sabio.page.startUp = function () {
                 sabio.services.getUser(sabio.page.getUserSuccess, sabio.page.error)          
-              // $("#btnMyFaq").on("click", sabio.page.handlers.onViewFaqList);
                 $(".sec-nav ul").on("click", "li", sabio.page.handlers.onNavClicked);
                 $("#accordion").on("click", "#btnEdit", sabio.page.handlers.onEditClicked);
                 $("#btnLogout").on("click", sabio.page.handlers.onLogout);
@@ -86,6 +87,7 @@
          
             sabio.page.handlers.onNavClicked = function (evt) {
                 var li = null;
+                console.log(evt)
                 li = evt.currentTarget;
                 sabio.services.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error);
                 sabio.page.selectCategory();
@@ -93,17 +95,13 @@
 
             sabio.page.selectCategory = function () {
                 $(" ul li").removeClass("active");
-                $(this).addClass("active");
-              
+                $(this).addClass("active");             
             }
             sabio.page.handlers.onEditClicked = function () {
                 sabio.page.activeQuestion = this;
                 console.log(sabio.page.activeQuestion)
-                var id =  $("#faqId").val();
-                //sabio.page.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error)
-                // $(".faq").css("display", "inherit");
-      
-           window.location = "newFaq.html?id=" + id 
+                var id =  $("#faqId").val();   
+                window.location = "newFaq.html?id=" + id 
             }
 
             sabio.page.loadFaq = function (id, status, xhr) {
@@ -111,7 +109,7 @@
             }
 
             sabio.page.getUserSuccess = function (data, status, xhr) {
-                $("h1").text(data.item.firstName + " " + data.item.lastName);
+                $("h3 span").text(data.item.firstName + " " + data.item.lastName + " " + data.item.id);
             }
 
             sabio.page.getUserListSuccess = function (data, status, xhr) {
@@ -119,10 +117,9 @@
 
                 data.items = data.items.sort(function (a, b) {
                     return a.displayOrder - b.displayOrder
-                })
-                console.log(data.items)
-
-                for (var i = 0; i < data.items.length; i++) {
+                }) 
+                
+                 for (let i = 0; i < data.items.length; i++) {
                     if (data.items[i].faqCategoryId == $("li.active").data("id")) {
                         sabio.page.handlers.onNavClicked                  
                         sabio.page.writeUserFaqList(data.items[i]); 
@@ -130,33 +127,30 @@
                 }
             }
 
-            sabio.page.writeUserFaqList = function (Faqdata) {
-        
-                var template = sabio.page.loadTemplate();
+            sabio.page.writeUserFaqList = function (Faqdata) {       
+                const template = sabio.page.loadTemplate();
+                let randId = sabio.page.randomNumber();
+                template.find("h4 a").attr("href","#"+ randId);
+                template.find(".answer").attr("id", randId);
                 template.find("#faqId").val( Faqdata.id);
-                template.find("h4 a").text(Faqdata.question + " " + Faqdata.category + " " + Faqdata.displayOrder + " " + Faqdata.id);
+                template.find("h4 a").text(Faqdata.question);
                 template.find(".answer").text(Faqdata.answer);
                 $("#accordion").append(template);
             }
 
             sabio.page.loadCategorySuccessFaqList = function (data, status, xhr) { 
-
                 data.items.forEach(function (item) {
-                    //sabio.page.selectCategory();
                     $(".sec-nav ul").append("<li role='presentation' data-id=" + item.id + "><a href=#" + item.name + " aria-controls='" + item.name + "' role='tab' data-toggle='tab'>" + item.name + "</a></li>");
                 $(".sec-nav ul li").eq(0).addClass("active");     
                 });
-                sabio.services.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error);
-             
+                sabio.services.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error);            
             }
 
             sabio.page.logoutSuccess = function (data, status, xhr) {
                 window.location = "login.html";
             }
 
-            sabio.page.loadTemplate = function () {
-                return $($("#template").html());
-            }
+            sabio.page.loadTemplate = () => $($("#template").html());
 
             sabio.page.error = function (xhr, status, errorText) {
                 console.log(errorText);
@@ -165,6 +159,8 @@
             sabio.page.handlers.onLogout = function () {
                 sabio.services.logout(sabio.page.logoutSuccess, sabio.page.error)
             }
+
+            sabio.page.randomNumber = () => Math.floor(Math.random() * 1000000);
         </script>
 </body>
 </html>

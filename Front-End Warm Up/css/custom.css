@@ -1,6 +1,9 @@
-﻿.active {
-    border-top: 2px white solid;
+﻿.active
+{
+    border-top: 1.5px white solid;
 }
+
+
 
 .container-fluid {
     margin: 0;
@@ -17,12 +20,16 @@ header {
     padding: 2%;
 }
 
+form input {
+border:none;
+}
+
 ul {
     list-style-type: none;
 }
 
     ul li {
-        font-size: 1.2em;
+        font-size: 1em;
     }
 
 header nav ul li a {
@@ -43,18 +50,36 @@ header nav ul li a {
         color: black;
     }
 
-h1 {
+h3 {
     font-size: 2em;
     color: #29339B;
 }
 
-.alert {
-    display: none;
+
+.collapse {
+    padding: 1.5%;
 }
 
-input {
-    border: 0;
-    padding: 7px 0;
-    border-bottom: 1px solid #ccc;
+.answer {
+ 
+    transition: all 0.2s ease-in
 }
+
+.form-control {
+    border-radius: 0px;
+    border: none;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+
+
+label {
+    font-weight: 500;
+    transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+}
+
 

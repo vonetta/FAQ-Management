@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="css/custom.css"/>
 </head>
 <body>
     <div class="container-fluid">
@@ -19,8 +19,8 @@
                     <li role="presentation" class="pull-right" id="btnQuiz"><a href="#">My Quizzes</a></li>
                     <li role="presentation" class="pull-right" id="btnMyFaq"><a href="home.html">My FAQ's</a></li>
                     <li role="presentation" class="pull-right" id="btnFaq"><a href="newFaq.html" class="active">New FAQ's</a></li>
-                    <li role="presentation" class="pull-right"><a href="login.html">Login</a></li>
-                    <li role="presentation" class="pull-right"><a href="register.html">Register</a></li>
+                    <!--<li role="presentation" class="pull-right"><a href="login.html">Login</a></li>
+                    <li role="presentation" class="pull-right"><a href="register.html">Register</a></li>-->
                 </ul>
             </nav>
         </header>
@@ -58,7 +58,8 @@
                         <input type="hidden" id="faqId" />
                     </form>
                 </div>
-            </div>         
+            </div>
+
         </div>
     </div>
   
@@ -90,11 +91,11 @@
             sabio.page.handlers.onNavClicked = function (evt) {
                 var li = null;
                 li = evt.currentTarget;
-                sabio.services.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error);
+               // sabio.services.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error);
                 sabio.page.selectCategory();
             }
             sabio.page.handlers.onGetCategories = function () {
-                $(".faq").css("display", "inherit");
+               // $(".faq").css("display", "inherit");
                 sabio.services.getCategories(sabio.page.loadCategorySuccess, sabio.page.error);
             }
             sabio.page.onCreateNewFaq = function () {
@@ -103,8 +104,8 @@
             sabio.page.handlers.onNewFaq = function (e) {
                 e.preventDefault();
               
-                var data = sabio.page.readQuestion();
-                sabio.services.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
+                const data = sabio.page.readQuestion();
+                //sabio.services.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
                 var id = $("#faqId").val();
                 if (id) {
                     sabio.services.editFaq(data, id, sabio.page.editSuccess, sabio.page.error);
@@ -132,7 +133,7 @@
             }
 
             sabio.page.readQuestion = function () {
-                var questionData = {
+                const questionData = {
                     faqCategoryId: $("#dropdown").val(),
                     question: $("#question").val(),
                     answer: $("#answer").val(),
@@ -152,7 +153,7 @@
 
             sabio.page.getUserListSuccess = function (data, status, xhr) {
                 $("#accordion").empty();
-                for (var i = 0; i < data.items.length; i++) {
+                for (let i = 0; i < data.items.length; i++) {
                     if (data.items[i].faqCategoryId == $("li.active").data("id")) {
                         sabio.page.handlers.onNavClicked
                         sabio.page.writeUserFaqList(data.items[i]);
@@ -161,7 +162,7 @@
             }
 
             sabio.page.writeUserFaqList = function (data) {
-                var template = sabio.page.loadTemplate();
+                const template = sabio.page.loadTemplate();
                 template.find("h4 a").text(data.question + " " + data.category + " " + data.displayOrder);
                 template.find(".answer").text(data.answer);
                 $("#accordion").append(template);
