@@ -1,7 +1,7 @@
 ﻿var userUrl = "https://pacoima-ypi.azurewebsites.net/api/users/";
 var url = "https://pacoima-ypi.azurewebsites.net/api/";
 
-sabio.services.userEmployeeId = function (onSuccess, onError) {
+sabio.services.userEmployeeId = (onSuccess, onError) => {
     var settings = {
         cache: false,
         type: "GET",
@@ -14,7 +14,7 @@ sabio.services.userEmployeeId = function (onSuccess, onError) {
     $.ajax(userUrl + "ids", settings);
 }
 
-sabio.services.newQuizEntry = function (data, onSuccess, onError) {
+sabio.services.newQuizEntry = (data, onSuccess, onError)  => {
     var settings = {
         cache: false,
         type: "POST",
@@ -30,7 +30,7 @@ sabio.services.newQuizEntry = function (data, onSuccess, onError) {
     $.ajax(url + "quizzes", settings);
 }
 
-sabio.services.editQuizEntry = function (data, id, onSuccess, onError) {
+sabio.services.editQuizEntry = (data, id, onSuccess, onError) => {
     var settings = {
         cache: false,
         type: "PUT",
@@ -45,7 +45,7 @@ sabio.services.editQuizEntry = function (data, id, onSuccess, onError) {
     $.ajax(url + "quizzes/" + id, settings);
 }
 
-sabio.services.postQuizQuestion = function (data, onSuccess, onError) {
+sabio.services.postQuizQuestion = (data, onSuccess, onError) => {
     var settings = {
         cache: false,
         type: "POST",
@@ -57,5 +57,20 @@ sabio.services.postQuizQuestion = function (data, onSuccess, onError) {
             withCredentials: true
         }
     };
-    $.ajax(url + "quizzes/questions");
+    $.ajax(url + "quizzes/questions", settings);
+}
+
+sabio.services.deleteQuizQuestion = (data, id, onSuccess, onError) => {
+    var settings = {
+        cache: false,
+        type: "DELETE",
+        contentType: "application/Json",
+        data: JSON.stringify(data),
+        success, onSuccess,
+        error: onError,
+        xhrFields: {
+            withCredentials: true
+        }
+    };
+        $.ajax(url + "/quizzes/questions/" + id ,settings);
 }
