@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <!--<label>Default Answer Type</label>
-    <input type="text" class="form-control" id="defaultAnswer" placeholder="Default Answer">-->
+                    <input type="text" class="form-control" id="defaultAnswer" placeholder="Default Answer">-->
                         <label>Default Answer Type</label>
                         <select id="defaultAnswer" class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
                             <option value="0">Select</option>
@@ -52,44 +52,86 @@
                         <br><br>
                     </div>
 
-            <div class="form-group">
-                <label>Randomize Question</label>
-                <p></p>
-                <label class="radio-inline">
-                    <input type="radio" name="ranQues" id="ranQues1" value="true"> Yes
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="ranQues" id="ranQues2" value="false" checked> No
-                </label>
-            </div>
+                    <div class="form-group">
+                        <label>Randomize Question</label>
+                        <p></p>
+                        <label class="radio-inline">
+                            <input type="radio" name="ranQues" id="ranQues1" value="true"> Yes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ranQues" id="ranQues2" value="false" checked> No
+                        </label>
+                    </div>
 
-            <div class="form-group">
-                <label>Randomize Answer</label>
-                <p></p>
-                <label class="radio-inline">
-                    <input type="radio" name="ranAns" id="inlineRadio1" value="true"> Yes
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="ranAns" id="inlineRadio2" value="false" checked> No
-                </label>
-            </div>
+                    <div class="form-group">
+                        <label>Randomize Answer</label>
+                        <p></p>
+                        <label class="radio-inline">
+                            <input type="radio" name="ranAns" id="inlineRadio1" value="true"> Yes
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="ranAns" id="inlineRadio2" value="false" checked> No
+                        </label>
+                    </div>
 
-            <div class="form-group">
-                <label>Employee Id</label>
-                <input type="text" id="empId" />
-            </div>
+                    <div class="form-group">
+                        <label>Employee Id</label>
+                        <input type="text" id="empId" />
+                    </div>
 
-            <button type="submit" class="btn btn-default pull-right" id="btnQuizSub">Submit</button>
-            </form>
-        </div>
+                    <button type="submit" class="btn btn-default pull-right" id="btnQuizSub">Submit</button>
+                </form>
+            </div>
 
             <div class="row hide">
                 <button type="button" class="btn btn-default" id="btnAddQuestion">Add Questions</button>
                 <div class="row newQues">
-               
+
                 </div>
             </div>
         </div>
+
+        <form class=" well col-md-6 col-md-offset-3">
+
+            <input type="hidden" class="questionId" />
+
+            <h1 class="text-center">Create a Question</h1>
+
+            <div class="form-group">
+                <label>Question</label>
+                <input type="text" class="form-control" id="Question" placeholder="Question">
+            </div>
+
+            <div class="form-group">
+
+                <label>Answer Type</label>
+                <select id="questionAnswerType" class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
+                    <option value="0">Select</option>
+                    <option value="Single">Single</option>
+                    <option value="Multiple">Multiple</option>
+                    <option value="Open">Open</option>
+                </select>
+                <br><br>
+            </div>
+
+            <div class="form-group">
+                <label>Answer</label>
+                <input type="text" class="form-control" id="questionAnswer" placeholder="Answer">
+            </div>
+
+            <div class="form-group">
+                <label>Open Answer</label>
+                <input type="text" class="form-control" id="questionOpen" placeholder="Open Answer Question">
+            </div>
+
+            <div class="form-group">
+                <label>Media</label>
+                <input type="text" class="form-control" id="media" placeholder="Media">
+            </div>
+
+            <button type="submit" class="btn btn-primary pull-left" id="btnNewQues">New Question</button>
+            <button type="submit" class="btn btn-success pull-right" id="btnSubNewQues">Submit Question</button>
+        </form>
     </div>
 
     <script type="text/html" id="template">
@@ -101,13 +143,13 @@
 
             <div class="form-group">
                 <label>Question</label>
-                <input type="text" class="form-control" id="question" placeholder="Question">
+                <input type="text" class="form-control" id="Questionq" placeholder="Question">
             </div>
 
             <div class="form-group">
 
                 <label>Answer Type</label>
-                <select id="defaultAnswer" class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
+                <select id="questionAnswerType" class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
                     <option value="0">Select</option>
                     <option value="Single">Single</option>
                     <option value="Multiple">Multiple</option>
@@ -118,12 +160,12 @@
 
             <div class="form-group">
                 <label>Answer</label>
-                <input type="text" class="form-control" id="answer" placeholder="Answer">
+                <input type="text" class="form-control" id="questionAnswer" placeholder="Answer">
             </div>
 
             <div class="form-group">
                 <label>Open Answer</label>
-                <input type="text" class="form-control" id="open" placeholder="Open Answer Question">
+                <input type="text" class="form-control" id="questionOpen" placeholder="Open Answer Question">
             </div>
 
             <div class="form-group">
@@ -204,10 +246,11 @@
 
         sabio.page.readQuestionForm = () => {
             return questionData = {
-                    question: "sample string 2",                     
-                    answerType: "sample string 3",                               
-                    openAnswer: "sample string 4",
-                    media: "sample string 5"          
+                question: $("#questionQuestion").val(),                     
+                    answerType: $("#questionAnswer"),                               
+                    openAnswer: $("#open").val(),
+                    media: $("#media").val()
+                    
             }
         }
 
