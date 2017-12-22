@@ -71,7 +71,7 @@
     <script src="script/sabio.services.faqs.js"></script>
 
     <script type="text/javascript">
-            sabio.page.startUp = function () {
+            sabio.page.startUp = () => {
                 sabio.services.getUser(sabio.page.getUserSuccess, sabio.page.error)
                 $("#btnFaq").on("click", sabio.page.handlers.onGetCategories);
                 $("#btnSubQues").on("click", sabio.page.handlers.onNewFaq);
@@ -81,58 +81,51 @@
     
                 sabio.services.getCategories(sabio.page.loadCategorySuccess, sabio.page.error);
                 var params = new URLSearchParams(window.location.search);
-                var faqId = params.get('id');
+                var quizId = params.get('id');
 
-                if (faqId) {
-                    sabio.page.loadFaq(faqId, sabio.page.loadFaqSuccess, sabio.page.error);
+                if (quizId) {
+                    sabio.page.loadQuiz(quizId, sabio.page.loadFaqSuccess, sabio.page.error);
                 }
 
             }
-            sabio.page.handlers.onNavClicked = function (evt) {
+            sabio.page.handlers.onNavClicked = (evt) => {
                 var li = null;
                 li = evt.currentTarget;
                // sabio.services.getFaqUserQuestions(sabio.page.getUserListSuccess, sabio.page.error);
                 sabio.page.selectCategory();
             }
-            sabio.page.handlers.onGetCategories = function () {
+            sabio.page.handlers.onGetCategories = () => {
                // $(".faq").css("display", "inherit");
                 sabio.services.getCategories(sabio.page.loadCategorySuccess, sabio.page.error);
             }
-            sabio.page.onCreateNewFaq = function () {
+            sabio.page.onCreateNewFaq = () => {
                 $("form")[0].reset();
             }
-            sabio.page.handlers.onNewFaq = function (e) {
-                e.preventDefault();
-              
+            sabio.page.handlers.onNewFaq = (e) => {
+                e.preventDefault();              
                 const data = sabio.page.readQuestion();
-                //sabio.services.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
                 var id = $("#faqId").val();
                 if (id) {
                     sabio.services.editFaq(data, id, sabio.page.editSuccess, sabio.page.error);
                 }
                 else {
                     sabio.services.newFaq(data, sabio.page.faqSuccess, sabio.page.error);
-                }
+                } 
             }
-            sabio.page.handlers.onViewFaqList = function () {
-
+            sabio.page.handlers.onViewFaqList = () => {
                 $(".sec-nav").removeClass("hide");
                 $(".faq").css("display", "none");
                 $(".cat-list").empty();
                 sabio.page.selectCategory();
                 sabio.services.getCategories(sabio.page.loadCategorySuccessFaqList, sabio.page.error);
             }
-            //sabio.page.handlers.onEditClicked = function () {
-            //    console.log("edit question")
-            //    $(".faq").css("display", "inherit");
-            //   // sabio.page.loadFaq(id)
-            //}
+
             sabio.page.selectCategory = function () {
                 $(" ul li").removeClass("active");
                 $(this).addClass("active");
             }
 
-            sabio.page.readQuestion = function () {
+            sabio.page.readQuestion = () => {
                 const questionData = {
                     faqCategoryId: $("#dropdown").val(),
                     question: $("#question").val(),
@@ -143,15 +136,13 @@
                 return questionData
             }
 
-            sabio.page.loadFaq = function (id, status, xhr) {
-                sabio.services.getFaqById(id, sabio.page.loadFaqSuccess, sabio.page.error);
+            sabio.page.loadFaq = (id, status, xhr) => sabio.services.getFaqById(id, sabio.page.loadFaqSuccess, sabio.page.error);
+
+            sabio.page.getUserSuccess = (data, status, xhr) => {
+                $("h1").text(`${data.item.firstName} ${data.item.lastName}`);
             }
 
-            sabio.page.getUserSuccess = function (data, status, xhr) {
-                $("h1").text(data.item.firstName + " " + data.item.lastName);
-            }
-
-            sabio.page.getUserListSuccess = function (data, status, xhr) {
+            sabio.page.getUserListSuccess = (data, status, xhr) => {
                 $("#accordion").empty();
                 for (let i = 0; i < data.items.length; i++) {
                     if (data.items[i].faqCategoryId == $("li.active").data("id")) {
@@ -161,56 +152,47 @@
                 }
             }
 
-            sabio.page.writeUserFaqList = function (data) {
+            sabio.page.writeUserFaqList = (data) => {
                 const template = sabio.page.loadTemplate();
-                template.find("h4 a").text(data.question + " " + data.category + " " + data.displayOrder);
+                template.find("h4 a").text(`${data.question} ${data.category} ${data.displayOrder}`);
                 template.find(".answer").text(data.answer);
                 $("#accordion").append(template);
             }
 
-            sabio.page.loadCategorySuccessFaqList = function (data, status, xhr) {
-                //var data = JSON.parse(data)
-                //console.log( Array .isArray(data))
+            sabio.page.loadCategorySuccessFaqList = (data, status, xhr) => {
                 data.items.forEach(function (item) {
                     sabio.page.selectCategory();
-                    $(".sec-nav ul").append("<li role='presentation' data-id=" + item.id + "><a href=#" + item.name + " aria-controls='" + item.name + "' role='tab' data-toggle='tab'>" + item.name + "</a></li>");
+                    $(".sec-nav ul").append(`<li role="presentation" data-id="${item.id}"><a href="#${item.name}" aria-controls="${item.name}" role="tab" data-toggle="${tab}">${item.name}</a></li>`);
                 });
             }
 
-            sabio.page.loadTemplate = function () {
-                return $($("#template").html());
-            }
+            sabio.page.loadTemplate = () => $($("#template").html());
 
-            sabio.page.loadCategorySuccess = function (data, status, xhr) {
+            sabio.page.loadCategorySuccess = (data, status, xhr) => {
                 data.items.forEach(function (item) {
                     $(".dropdown").append("<option value =" + item.id + ">" + item.name + "</option>");
                 });
             }
 
-            sabio.page.faqSuccess = function (data, status, xhr) {
+            sabio.page.faqSuccess = (data, status, xhr) => {
                 var id = data.item
                 $("#faqId").val(id);
                 $("#btnSubQues").text("Update FAQ");
             }
 
-            sabio.page.editSuccess = function (data, status, xhr) {
-                console.log("edit")
-            }
+            sabio.page.editSuccess = (data, status, xhr) => console.log("edit")
 
-            sabio.page.loadFaqSuccess = function (data, status, xhr) {
+            sabio.page.loadFaqSuccess = (data, status, xhr) => {
                 $("#question").val(data.item.question)
                 $("#answer").val(data.item.answer)
                 $("#display").val(data.item.displayOrder)
-                $(".dropdown").append("<option value =" + data.item.faqCategoryId + ">" + data.item.category + "</option>");
+                $(".dropdown").append(`<option value=${data.item.faqCategoryId}>${data.item.category}</option>`);
             }
 
-            sabio.page.error = function (xhr, status, errorText) {
-                console.log(errorText);
-            }
+            sabio.page.error = (xhr, status, errorText) => console.log(errorText);            
 
-            sabio.page.handlers.onLogout = function () {
-                sabio.services.logout(sabio.page.logoutSuccess, sabio.page.error)
-            }
+            sabio.page.handlers.onLogout = () =>  sabio.services.logout(sabio.page.logoutSuccess, sabio.page.error)
+            
     </script>
 </body>
 </html>

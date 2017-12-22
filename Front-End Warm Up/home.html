@@ -109,7 +109,7 @@
             }
 
             sabio.page.getUserSuccess = function (data, status, xhr) {
-                $("h3 span").text(`${data.item.firstName}  ${data.item.lastName} ${data.item.id}`);
+                $("h3 span").text(`${data.item.firstName} ${data.item.lastName}`);
             }
 
             sabio.page.getUserListSuccess = function (data, status, xhr) {
@@ -141,7 +141,7 @@
             sabio.page.loadCategorySuccessFaqList = function (data, status, xhr) { 
                 data.items.forEach(function (item) {
        
-                    $(".sec-nav ul").append(`<li role='presentation' data-id=${item.id}><a href="#${item.name}" aria-controls="${item.name}" role="tab" data-toggle="tab">${item.name}</a></li>`);
+                    $(".sec-nav ul").append(`<li role="presentation" data-id=${item.id}><a href="#${item.name}" aria-controls="${item.name}" role="tab" data-toggle="tab">${item.name}</a></li>`);
 
                 $(".sec-nav ul li").eq(0).addClass("active");     
                 });
