@@ -8,6 +8,7 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="css/custom.css" />
+    <link rel=icon href="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiZmbLygJzYAhWGYiYKHTi0BkIQjRwIBw&url=https%3A%2F%2Fquiz.uludagsozluk.com%2F&psig=AOvVaw1PrE5kCzQbjrNTTyVqx92r&ust=1513976691018540">
 </head>
 <body>
     <div class="container-fluid">
@@ -86,132 +87,129 @@
                 <button type="button" class="btn btn-default" id="btnAddQuestion">Add Questions</button>
             </div>-->
             <div class="row newQues">
-                <form class="well col-md-6 col-md-offset-3">
+                <!--    <form class="well col-md-6 col-md-offset-3">
 
-                    <input type="hidden" id="questionId" />
+        <input type="hidden" id="quizIdForQuestion" />
+        <input type="hidden" id="questionIdForQuestion" />
 
-                    <button type="button" class="btn btn-danger pull-right" id="btnDeleteQues">X</button>
+        <h1 class="text-center">Create a Question</h1>
 
-                    <h1 class="text-center">Create a Question</h1>
-
-                    <div class="form-group">
-                        <label>Question</label>
-                        <input type="text" class="form-control" id="Questionq" placeholder="Question">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Answer Type</label>
-                        <select id="questionAnswerType" class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
-                            <option value="0">Select</option>
-                            <option value="Single">Single</option>
-                            <option value="Multiple">Multiple</option>
-                            <option value="Open">Open</option>
-                        </select>
-                        <br><br>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Answer</label>
-                        <input type="text" class="form-control" id="questionAnswer" placeholder="Answer">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Is Correct</label>
-                        <p></p>
-                        <label class="radio-inline">
-                            <input type="radio" name="quesCorrect" id="questionRadio1" value="true"> Yes
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="quesCorrect" id="questionRadio2" value="false" checked> No
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Sort Order</label>
-                        <input type="text" class="form-control" id="questionSort" placeholder="Sort Order">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Open Answer</label>
-                        <input type="text" class="form-control" id="questionOpen" placeholder="Open Answer Question">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Media</label>
-                        <input type="text" class="form-control" id="media" placeholder="Media">
-                    </div>
-
-                    <button type="button" class="btn btn-primary pull-left" id="btnNewQues">New Question</button>
-                    <button type="button" class="btn btn-success pull-right" id="btnSubNewQues">Submit Question</button>
-
-                </form>
-            </div>
-       
+        <div class="form-group">
+            <label>Question</label>
+            <input type="text" class="form-control" id="Questionq" placeholder="Question">
         </div>
+
+        <div class="form-group">
+            <label>Answer Type</label>
+            <select id="questionAnswerType" class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
+                <option value="0">Select</option>
+                <option value="Single">Single</option>
+                <option value="Multiple">Multiple</option>
+                <option value="Open">Open</option>
+            </select>
+            <br><br>
+        </div>
+
+        <div class="form-group">
+            <label>Answer</label>
+            <input type="text" class="form-control" id="questionAnswer" placeholder="Answer">
+        </div>
+
+        <div class="form-group">
+            <label>Is Correct</label>
+            <p></p>
+            <label class="radio-inline">
+                <input type="radio" name="quesCorrect" id="questionRadio1" value="true"> Yes
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="quesCorrect" id="questionRadio2" value="false" checked> No
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>Sort Order</label>
+            <input type="text" class="form-control" id="questionSort" placeholder="Sort Order">
+        </div>
+
+        <div class="form-group">
+            <label>Open Answer</label>
+            <input type="text" class="form-control" id="questionOpen" placeholder="Open Answer Question">
+        </div>
+
+        <div class="form-group">
+            <label>Media</label>
+            <input type="text" class="form-control" id="media" placeholder="Media">
+        </div>
+
+        <button type="button" class="btn btn-primary pull-left" id="btnNewQues">New Question</button>
+        <button type="button" class="btn btn-success pull-right" id="btnSubNewQues">Submit Question</button>
+
+    </form>-->
+            </div>
+            </div>
     </div>
     <script type="text/html" id="template">
         <form class=" well col-md-6 col-md-offset-3">
 
-        <input type="hidden" id="questionId" />
+            <input type="hidden" id="quizIdForQuestion"/>
+            <input type="hidden" id="questionIdForQuestion" />
 
-        <h1 class="text-center">Create a Question</h1>
-        <div class="form-control">
+                    <button type="button" class="btn btn-danger pull-right" id="btnDeleteQues">X</button>
+            <h1 class="text-center">Create a Question</h1>
+            <div>      
+              
+                <div class="form-group">
+                    <label>Question</label>
+                    <input type="text" class="form-control" id="Questionq" placeholder="Question">
+                </div>
 
-            <div class="form-group">
-                <button type="button" class="btn btn-danger pull-right" id="btnDeleteQues">X</button>
+                <div class="form-group">
+
+                    <label>Answer Type</label>
+                    <select id="questionAnswerType" class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
+                        <option value="0">Select</option>
+                        <option value="Single">Single</option>
+                        <option value="Multiple">Multiple</option>
+                        <option value="Open">Open</option>
+                    </select>
+                    <br><br>
+                </div>
+
+                <div class="form-group">
+                    <label>Answer</label>
+                    <input type="text" class="form-control" id="questionAnswer" placeholder="Answer">
+                </div>
+
+                <div class="form-group">
+                    <label>Is Correct</label>
+                    <p></p>
+                    <label class="radio-inline">
+                        <input type="radio" name="quesCorrect" id="questionRadio1" value="true"> Yes
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="quesCorrect" id="questionRadio2" value="false" checked> No
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label>Sort Order</label>
+                    <input type="text" class="form-control" id="questionSort" placeholder="Sort Order">
+                </div>
+
+                <div class="form-group">
+                    <label>Open Answer</label>
+                    <input type="text" class="form-control" id="questionOpen" placeholder="Open Answer Question">
+                </div>
+
+                <div class="form-group">
+                    <label>Media</label>
+                    <input type="text" class="form-control" id="media" placeholder="Media">
+                </div>
+
+                <button type="button" class="btn btn-primary pull-left" id="btnNewQues">New Question</button>
+                <button type="button" class="btn btn-success pull-right" id="btnSubNewQues">Submit Question</button>
             </div>
-            <div class="form-group">
-                <label>Question</label>
-                <input type="text" class="form-control" id="Questionq" placeholder="Question">
-            </div>
-
-            <div class="form-group">
-
-                <label>Answer Type</label>
-                <select id="questionAnswerType" class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
-                    <option value="0">Select</option>
-                    <option value="Single">Single</option>
-                    <option value="Multiple">Multiple</option>
-                    <option value="Open">Open</option>
-                </select>
-                <br><br>
-            </div>
-
-            <div class="form-group">
-                <label>Answer</label>
-                <input type="text" class="form-control" id="questionAnswer" placeholder="Answer">
-            </div>
-
-            <div class="form-group">
-                <label>Is Correct</label>
-                <p></p>
-                <label class="radio-inline">
-                    <input type="radio" name="quesCorrect" id="questionRadio1" value="true"> Yes
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="quesCorrect" id="questionRadio2" value="false" checked> No
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label>Sort Order</label>
-                <input type="text" class="form-control" id="questionSort" placeholder="Sort Order">
-            </div>
-
-            <div class="form-group">
-                <label>Open Answer</label>
-                <input type="text" class="form-control" id="questionOpen" placeholder="Open Answer Question">
-            </div>
-
-            <div class="form-group">
-                <label>Media</label>
-                <input type="text" class="form-control" id="media" placeholder="Media">
-            </div>
-
-            <button type="button" class="btn btn-primary pull-left" id="btnNewQues">New Question</button>
-            <button type="button" class="btn btn-success pull-right" id="btnSubNewQues">Submit Question</button>
-        </div>
-    </form>
+        </form>
 
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -249,28 +247,34 @@
 
         sabio.page.handlers.onAddQuestion = (e) => {
             e.preventDefault();
-            sabio.page.showNewAddedQuestion()
+            sabio.page.showNewAddedQuestion();
         }
 
         sabio.page.handlers.onSubmitNewQuestion = (e) => {
             e.preventDefault();
             console.log("submit question");           
             const data = sabio.page.readQuestionForm();
-            sabio.services.postQuizQuestion(data, sabio.page.newQuestionSubmissionSuccess, sabio.page.error)
+            sabio.services.postQuizQuestion(data, sabio.page.newQuestionSubmissionSuccess, sabio.page.error);
         } 
 
         sabio.page.handlers.onDeleteQuestion = () => {
+            console.log("deleting question");
 
+            var quizId = $("#quizIdForQuestion").val()
+            sabio.services.deleteQuizQuestion(quizId, sabio.page.deleteQuestionSuccess, sabio.page.error);
         }
 
         sabio.page.showNewAddedQuestion = () => {
+            console.log("added questions")
             const template = sabio.page.loadTemplate();
-            template.find("#questionId").val($("#quizId").val());
+            template.find("#quizIdForQuestion").val($("#quizId").val());
             $(".newQues").append(template);
         }
 
         sabio.page.newQuestionSubmissionSuccess = (data, status, xhr) => {
             var id = data.item
+            console.log(id)
+            $("#questionIdForQuestion").val(id);
         }
 
         sabio.page.readQuizForm = () => {
@@ -286,7 +290,7 @@
 
         sabio.page.readQuestionForm = () => {
             return questionData = {
-                quizId: $("#questionId").val(),
+                quizId: $("#quizIdForQuestion").val(),
                 question: $("#Questionq").val(),
                  answerType: $("#questionAnswerType").val(),
                 answers: 
@@ -303,11 +307,16 @@
         }
 
         sabio.page.successNewQuiz = (data, status, xhr) => {
+            console.log("success")
             const id = data.item;
             $("#quizId").val(id);
-            sabio.page.showNewAddedQuestion();          
-            $("#btnAddQuestion").parents("div").removeClass("hide")
+            $("#btnQuizSub").text("Update Quiz");
+            sabio.page.showNewAddedQuestion();
+            // $("#btnAddQuestion").parents("div").removeClass("hide")
+
         }
+
+        sabio.page.deleteQuestionSuccess = (data, id, status, xhr) => console.log("delete successful")
 
         sabio.page.quizEditSuccess = (data, status, xhr) => console.log("edit success");  
 
@@ -325,9 +334,9 @@
 
         sabio.page.error = (xhr, status, errorText) => console.log("error");
 
-        sabio.page.handlers.onLogout = () => sabio.services.logout(sabio.page.logoutSuccess, sabio.page.error)
+        sabio.page.handlers.onLogout = () => sabio.services.logout(sabio.page.logoutSuccess, sabio.page.error);
 
-        sabio.page.logoutSuccess = (data, status, xhr) => window.location = "login.html";    
+        sabio.page.logoutSuccess = (data, status, xhr) => { window.location = "login.html" };    
 
     </script>
 </body>

@@ -66,7 +66,7 @@ sabio.services.deleteQuizQuestion = (data, id, onSuccess, onError) => {
         type: "DELETE",
         contentType: "application/Json",
         data: JSON.stringify(data),
-        success, onSuccess,
+        success: onSuccess,
         error: onError,
         xhrFields: {
             withCredentials: true
