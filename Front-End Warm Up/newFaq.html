@@ -81,10 +81,10 @@
     
                 sabio.services.getCategories(sabio.page.loadCategorySuccess, sabio.page.error);
                 var params = new URLSearchParams(window.location.search);
-                var quizId = params.get('id');
+                var faqId = params.get('id');
 
-                if (quizId) {
-                    sabio.page.loadQuiz(quizId, sabio.page.loadFaqSuccess, sabio.page.error);
+                if (faqId) {
+                    sabio.page.loadFaq(faqId, sabio.page.loadFaqSuccess, sabio.page.error);
                 }
 
             }

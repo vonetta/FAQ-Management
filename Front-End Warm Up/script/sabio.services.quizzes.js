@@ -88,7 +88,7 @@ sabio.services.updateQuizQuestion = (data, onSuccess, onError) => {
     $.ajax(url + "quizzes/questions/" + id, settings);
 }
 
-sabio.services.getQuizQuestion = (onSuccess, onError) => {
+sabio.services.loadQuiz = (onSuccess, onError) => {
     var settings = {
         cache: false,
         type: "GET",
@@ -98,5 +98,5 @@ sabio.services.getQuizQuestion = (onSuccess, onError) => {
             withCredentials: true
         }
     };
-    $.ajax(url, settings);
+    $.ajax(url + "quizzes/" ,settings);
 }

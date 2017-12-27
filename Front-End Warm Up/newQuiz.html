@@ -164,6 +164,14 @@
             $(".newQues").on("click", "#btnNewQues" ,sabio.page.handlers.onAddQuestion);
             $(".newQues").on("click", "#btnSubNewQues", sabio.page.handlers.onSubmitNewQuestion);
             $(".newQues").on("click", "#btnDeleteQues", sabio.page.handlers.onDeleteQuestion);
+
+
+            var params = new URLSearchParams(window.location.search);
+            var quizId = params.get('id');
+
+            if (quizId) {
+                sabio.page.loadQuiz(quizId, sabio.page.loadQuizSuccess, sabio.page.error);
+            }
         }
 
         sabio.page.handlers.onSubmitNewQuiz = (e) => {    
